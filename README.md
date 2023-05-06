@@ -6,6 +6,10 @@ Keyword Highlighter is a Chrome extension that highlights keywords on web pages,
 
 You can download and install Keyword Highlighter from the Chrome Web Store. Alternatively, you can clone this repository to your local machine or download the ZIP file and load the unpacked extension in developer mode.
 
+## Demo
+
+![](/docs/chrome-web-store/Screenshot_1.png)
+
 ## Usage
 
 To use Keyword Highlighter, simply click on the extension icon in the top right-hand corner of your browser. From there, you can customize your keyword highlight settings, including the option to highlight both positive and negative keywords.
