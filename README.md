@@ -1,10 +1,10 @@
 # Keywords Highlighter
 
-Keyword Highlighter is a Chrome extension that highlights keywords on web pages, making it easy to find or skip information.
+[Keyword Highlighter](https://chrome.google.com/webstore/detail/keywords-highlighter/lmaonnpepldfnbkbmhkkficpmjdlojnn) is a Chrome extension that highlights keywords on web pages, making it easy to find or skip information.
 
 ## Installation
 
-You can download and install Keyword Highlighter from the Chrome Web Store. Alternatively, you can clone this repository to your local machine or download the ZIP file and load the unpacked extension in developer mode.
+You can download and install Keyword Highlighter from the [Chrome Web Store](https://chrome.google.com/webstore/detail/keywords-highlighter/lmaonnpepldfnbkbmhkkficpmjdlojnn). Alternatively, you can clone this repository to your local machine or download the ZIP file and load the unpacked extension in developer mode.
 
 ## Demo
 
