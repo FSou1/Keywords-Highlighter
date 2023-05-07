@@ -1,9 +1,13 @@
 import { createRoot } from "react-dom/client";
 import DebugPopup from "@src/pages/content/components/DebugPopup";
 import App from "@src/pages/content/components/App";
-import refreshOnUpdate from "virtual:reload-on-update-in-view";
 import { get } from "@services/storage/storageService";
-import { SETTINGS_DEBUG } from "@services/constants";
+import {
+  SETTINGS_DEBUG,
+  SETTINGS_HIGHLIGHTED_STYLES,
+  SETTINGS_HIGHLIGHTED_STYLES_DEFAULT_VALUE,
+} from "@services/constants";
+import refreshOnUpdate from "virtual:reload-on-update-in-view";
 
 refreshOnUpdate("pages/content");
 
@@ -32,7 +36,26 @@ const initApp = () => {
   createRoot(root).render(<App />);
 };
 
+const addStyleBlock = (styles: string) => {
+  var sheet = document.createElement("style");
+  sheet.innerHTML = `.highlighted { ${styles} }`;
+  document.body.appendChild(sheet);
+};
+
+const initStyles = () => {
+  const key = SETTINGS_HIGHLIGHTED_STYLES,
+    defaultValue = SETTINGS_HIGHLIGHTED_STYLES_DEFAULT_VALUE;
+
+  get(key).then((result) => {
+    const highlightedStyles = result?.[key] || defaultValue;
+    if (highlightedStyles) {
+      addStyleBlock(highlightedStyles);
+    }
+  });
+};
+
 function init() {
+  initStyles();
   initApp();
   initDebug();
 }
