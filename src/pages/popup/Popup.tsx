@@ -1,11 +1,19 @@
 import { ChangeEvent } from "react";
 import "@pages/popup/Popup.css";
-import { SETTINGS_DEBUG, SETTINGS_KEYWORDS } from "@services/constants";
+import {
+  SETTINGS_DEBUG,
+  SETTINGS_KEYWORDS,
+  SETTINGS_HIGHLIGHTED_STYLES,
+  SETTINGS_HIGHLIGHTED_STYLES_DEFAULT_VALUE,
+} from "@services/constants";
 import useSettingsHook from "./hooks/useSettingsHook";
 
 const Popup = () => {
   const [debug, setDebug] = useSettingsHook<boolean>(SETTINGS_DEBUG);
   const [keywords, setKeywords] = useSettingsHook<string>(SETTINGS_KEYWORDS);
+  const [highlightedStyles, setHighlightedStyles] = useSettingsHook<string>(
+    SETTINGS_HIGHLIGHTED_STYLES
+  );
 
   const handleDebugChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDebug(e.target.checked);
@@ -13,6 +21,12 @@ const Popup = () => {
 
   const handleKeywordsChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setKeywords(e.target.value);
+  };
+
+  const handleHighlightedStylesChange = (
+    e: ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setHighlightedStyles(e.target.value);
   };
 
   return (
@@ -47,6 +61,21 @@ const Popup = () => {
               rows={8}
               value={keywords}
               onChange={handleKeywordsChange}
+            />
+          </div>
+
+          <div>
+            <div>
+              <label htmlFor="highlightedStyles">Highlighted styles: </label>
+            </div>
+            <textarea
+              id="highlightedStyles"
+              name="highlightedStyles"
+              placeholder={SETTINGS_HIGHLIGHTED_STYLES_DEFAULT_VALUE}
+              cols={45}
+              rows={8}
+              value={highlightedStyles}
+              onChange={handleHighlightedStylesChange}
             />
           </div>
         </fieldset>
