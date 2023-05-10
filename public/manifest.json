@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Keywords Highlighter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a chrome extension that highlights keywords on web pages, making it easy to find or skip information",
   "options_page": "src/pages/options/index.html",
   "background": {
@@ -14,12 +14,20 @@
   "icons": {
     "128": "icon-128.png"
   },
-  "permissions": ["storage"],
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://www.linkedin.com/*"],
-      "js": ["src/pages/content/index.js"],
-      "css": ["assets/css/contentStyle16836018082.chunk.css"]
+      "matches": [
+        "https://www.linkedin.com/*"
+      ],
+      "js": [
+        "src/pages/content/index.js"
+      ],
+      "css": [
+        "assets/css/contentStyle16837320447.chunk.css"
+      ]
     }
   ],
   "web_accessible_resources": [
@@ -30,7 +38,9 @@
         "icon-128.png",
         "icon-34.png"
       ],
-      "matches": ["*://*/*"]
+      "matches": [
+        "*://*/*"
+      ]
     }
   ]
 }
