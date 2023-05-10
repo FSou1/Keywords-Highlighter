@@ -18,6 +18,8 @@ To use Keyword Highlighter, simply click on the extension icon in the top right-
 
 Keyword Highlighter uses storage to store user settings and preferences, making it easy to access them every time the extension is used. This feature provides a more personalized and seamless experience for the user.
 
+![](/docs/chrome-web-store/Screenshot_2.png)
+
 ## Contributions
 
 If you'd like to contribute to Keyword Highlighter, please feel free to submit a pull request. We welcome any feedback or suggestions to improve the functionality of the extension.

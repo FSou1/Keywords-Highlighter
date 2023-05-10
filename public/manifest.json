@@ -9,26 +9,17 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "src/pages/popup/index.html",
     "default_icon": "icon-34.png"
   },
   "icons": {
     "128": "icon-128.png"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": [
-        "https://www.linkedin.com/*"
-      ],
-      "js": [
-        "src/pages/content/index.js"
-      ],
-      "css": [
-        "assets/css/contentStyle16834342064.chunk.css"
-      ]
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["src/pages/content/index.js"],
+      "css": ["assets/css/contentStyle16836018082.chunk.css"]
     }
   ],
   "web_accessible_resources": [
@@ -39,9 +30,7 @@
         "icon-128.png",
         "icon-34.png"
       ],
-      "matches": [
-        "*://*/*"
-      ]
+      "matches": ["*://*/*"]
     }
   ]
 }
