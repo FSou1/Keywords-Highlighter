@@ -1,31 +1,35 @@
 import { useEffect, useState } from "react";
-import { get } from "@services/storage/storageService";
-import {
-  SETTINGS_KEYWORDS,
-  OBSERVABLE_DEBOUNCE_TIME_MS,
-} from "@services/constants";
+import { OBSERVABLE_DEBOUNCE_TIME_MS } from "@services/constants";
+import { getRules } from "@src/services/storage/optionsService";
+import { IKeywordRule } from "@src/pages/options/components/KeywordRule";
 import Highlighter from "./Highlighter";
 
 export default function App() {
-  const [keywords, setKeywords] = useState("");
+  const [rules, setRules] = useState([]);
+
+  const map = (rule: IKeywordRule) => {
+    return {
+      className: rule.id,
+      keywords: rule.keywords,
+      styles: rule.cssStyles,
+    };
+  };
 
   useEffect(() => {
-    get(SETTINGS_KEYWORDS).then((result) => {
-      const keywords = result?.[SETTINGS_KEYWORDS] || null;
-      if (keywords) {
-        setKeywords(keywords);
-      }
+    getRules().then((rules) => {
+      setRules(rules.map(map));
     });
   }, []);
 
-  if (!keywords) {
-    return;
-  }
-
   return (
-    <Highlighter
-      keywords={keywords}
-      debounceTimeMs={OBSERVABLE_DEBOUNCE_TIME_MS}
-    />
+    <>
+      {rules.map((rule) => (
+        <Highlighter
+          keywords={rule.keywords}
+          highlightedClassName={rule.className}
+          debounceTimeMs={OBSERVABLE_DEBOUNCE_TIME_MS}
+        />
+      ))}
+    </>
   );
 }

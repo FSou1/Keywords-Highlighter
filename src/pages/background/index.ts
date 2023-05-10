@@ -1,5 +1,11 @@
 import reloadOnUpdate from "virtual:reload-on-update-in-background-script";
 
+chrome.action.setPopup({ popup: '' });
+
+chrome.action.onClicked.addListener(() => {
+  chrome.tabs.create({ url: 'src/pages/options/index.html' });
+});
+
 reloadOnUpdate("pages/background");
 
 /**
