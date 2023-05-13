@@ -12,6 +12,7 @@ export default function App() {
       className: rule.id,
       keywords: rule.keywords,
       styles: rule.cssStyles,
+      highlightCompleteWords: rule.highlightCompleteWords,
     };
   };
 
@@ -27,6 +28,7 @@ export default function App() {
         <Highlighter
           keywords={rule.keywords}
           highlightedClassName={rule.className}
+          highlightCompleteWords={rule.highlightCompleteWords}
           debounceTimeMs={OBSERVABLE_DEBOUNCE_TIME_MS}
         />
       ))}
