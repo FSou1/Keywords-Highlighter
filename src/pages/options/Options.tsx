@@ -58,6 +58,7 @@ export default function Options() {
       keywords: null,
       cssStyles: null,
       enabledOn: null,
+      highlightCompleteWords: false,
     };
   };
 

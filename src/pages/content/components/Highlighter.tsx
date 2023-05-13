@@ -3,21 +3,24 @@ import { findAndWrap } from "@src/lib/findAndWrapHTMLNodes";
 import useMutationObservable, {
   DEFAULT_OPTIONS,
 } from "../hooks/useMutationObservable";
+import { buildFindTextRegExp } from "../utils/regExpHelper";
 
 interface HighlighterProps {
   debounceTimeMs: number;
   keywords: string;
   highlightedClassName: string;
+  highlightCompleteWords: boolean;
 }
 
 export default function Highlighter({
   debounceTimeMs,
   keywords,
   highlightedClassName,
+  highlightCompleteWords,
 }: HighlighterProps) {
   const onMutation = useCallback(() => {
     findAndWrap(document.body, {
-      findTextRegExp: new RegExp(keywords.replaceAll(",", "|"), "gi"),
+      findTextRegExp: buildFindTextRegExp({ keywords, highlightCompleteWords }),
       wrapWithTag: "span",
       wrapWithClassName: highlightedClassName,
       wrapIf: (node: Text) => {

@@ -4,13 +4,15 @@ import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export interface IKeywordRule {
   id: string;
   keywords: string;
   cssStyles: string;
   enabledOn: string;
+  highlightCompleteWords: boolean;
 }
 
 export type KeywordRuleProps = IKeywordRule & {
@@ -19,7 +21,14 @@ export type KeywordRuleProps = IKeywordRule & {
 };
 
 export default function KeywordRule(props: KeywordRuleProps) {
-  const { keywords, cssStyles, enabledOn, onRuleChange, onDeleteRule } = props;
+  const {
+    keywords,
+    cssStyles,
+    enabledOn,
+    highlightCompleteWords,
+    onRuleChange,
+    onDeleteRule,
+  } = props;
 
   const handleKeywordsChange: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -45,6 +54,15 @@ export default function KeywordRule(props: KeywordRuleProps) {
     onRuleChange({
       ...props,
       enabledOn: event.target.value,
+    });
+  };
+
+  const handleHighlightCompleteWordsChange: React.ChangeEventHandler<
+    HTMLInputElement
+  > = (event) => {
+    onRuleChange({
+      ...props,
+      highlightCompleteWords: event.target.checked,
     });
   };
 
@@ -100,6 +118,19 @@ export default function KeywordRule(props: KeywordRuleProps) {
           placeholder="https://www.linkedin.com/"
           onChange={handleEnabledOnChange}
           fullWidth
+        />
+      </Grid>
+
+      <Grid item xs={12} textAlign="left">
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="highlightCompleteWords"
+              checked={highlightCompleteWords}
+              onChange={handleHighlightCompleteWordsChange}
+            />
+          }
+          label="Only highlight complete words"
         />
       </Grid>
 
