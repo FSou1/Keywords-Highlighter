@@ -1,6 +1,6 @@
 {
   "name": "keywords-highlighter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a chrome extension that highlights keywords on web pages, making it easy to find or skip information",
   "license": "MIT",
   "repository": {
