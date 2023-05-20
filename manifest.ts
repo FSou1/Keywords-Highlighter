@@ -20,17 +20,14 @@ const manifest: chrome.runtime.ManifestV3 = {
     "128": "icon-128.png",
   },
   permissions: [
-    "storage"
+    "storage",
+    "scripting",
   ],
-  content_scripts: [
-    {
-      //matches: ["http://*/*", "https://*/*", "<all_urls>"],
-      matches: ["https://www.linkedin.com/*"],
-      js: ["src/pages/content/index.js"],
-      // KEY for cache invalidation
-      css: ["assets/css/contentStyle<KEY>.chunk.css"],
-    },
+  host_permissions: [
+    "http://*/*",
+    "https://*/*"
   ],
+  content_scripts: [],
   web_accessible_resources: [
     {
       resources: [
