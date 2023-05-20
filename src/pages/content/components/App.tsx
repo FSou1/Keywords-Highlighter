@@ -16,9 +16,15 @@ export default function App() {
     };
   };
 
+  const filter = (rule: IKeywordRule) => {
+    return rule.keywords?.length;
+  };
+
   useEffect(() => {
     getRules().then((rules) => {
-      setRules(rules.map(map));
+      setRules(rules
+        .filter(filter)
+        .map(map));
     });
   }, []);
 

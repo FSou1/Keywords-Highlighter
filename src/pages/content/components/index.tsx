@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import DebugPopup from "@src/pages/content/components/DebugPopup";
 import App from "@src/pages/content/components/App";
 import { get } from "@services/storage/storageService";
-import { SETTINGS_DEBUG, SETTINGS_KEYWORD_RULES } from "@services/constants";
+import { SETTINGS_DEBUG } from "@services/constants";
 import refreshOnUpdate from "virtual:reload-on-update-in-view";
 import { getRules } from "@src/services/storage/optionsService";
 
@@ -34,6 +34,10 @@ const initApp = () => {
 };
 
 const addStyleBlock = (className: string, styles: string) => {
+  if (!className || !styles) {
+    return;
+  }
+
   var sheet = document.createElement("style");
   sheet.innerHTML = `.${className} { ${styles} }`;
   document.body.appendChild(sheet);

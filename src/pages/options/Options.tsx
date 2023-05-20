@@ -9,13 +9,15 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Divider from "@mui/material/Divider";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { get, set } from "@services/storage/storageService";
 import { uid } from "@services/uidService";
 import "@pages/options/Options.css";
 import {
+  EVENT_OPTIONS_SAVED,
   SETTINGS_DEBUG,
+  SETTINGS_DISABLED_ON,
+  SETTINGS_ENABLED_ON,
   SETTINGS_KEYWORD_RULES,
   TEXT_OPTIONS,
   TEXT_OPTIONS_DISPLAY_DEBUG,
@@ -28,6 +30,8 @@ const theme = createTheme();
 
 export default function Options() {
   const [displayDebug, setDisplayDebug] = useState<boolean>(false);
+  const [enabledOn, setEnabledOn] = useState<string>();
+  const [disabledOn, setDisabledOn] = useState<string>();
   const [rules, setRules] = useState<IKeywordRule[]>([]);
 
   useEffect(() => {
@@ -35,9 +39,16 @@ export default function Options() {
   }, []);
 
   const initForm = () => {
-    get([SETTINGS_DEBUG, SETTINGS_KEYWORD_RULES]).then((result) => {
+    get([
+      SETTINGS_DEBUG,
+      SETTINGS_KEYWORD_RULES,
+      SETTINGS_ENABLED_ON,
+      SETTINGS_DISABLED_ON
+    ]).then((result) => {
       setDisplayDebug(result?.[SETTINGS_DEBUG] || false);
       setRules(result?.[SETTINGS_KEYWORD_RULES] || [createRule()]);
+      setEnabledOn(result?.[SETTINGS_ENABLED_ON] || null);
+      setDisabledOn(result?.[SETTINGS_DISABLED_ON] || null);
     });
   };
 
@@ -57,7 +68,6 @@ export default function Options() {
       id: uid(),
       keywords: null,
       cssStyles: null,
-      enabledOn: null,
       highlightCompleteWords: false,
     };
   };
@@ -80,8 +90,13 @@ export default function Options() {
   const handleApply = async () => {
     await set({
       [SETTINGS_DEBUG]: displayDebug,
+      [SETTINGS_ENABLED_ON]: enabledOn,
+      [SETTINGS_DISABLED_ON]: disabledOn,
       [SETTINGS_KEYWORD_RULES]: rules,
     });
+
+    chrome.runtime.sendMessage({ type: EVENT_OPTIONS_SAVED });
+
     alert(TEXT_OPTIONS_SAVED_SUCCESSFULLY);
   };
 
@@ -91,6 +106,18 @@ export default function Options() {
     const newRules = [createRule()];
     setRules(newRules);
     setDisplayDebug(false);
+  };
+
+  const handleEnabledOnChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    setEnabledOn(event.target.value);
+  };
+
+  const handleDisabledOnChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    setDisabledOn(event.target.value);
   };
 
   return (
@@ -123,7 +150,7 @@ export default function Options() {
             ))}
           </Grid>
 
-          <Grid container spacing={2} alignItems="center">
+          <Grid container spacing={2} sx={{ my: { xs: 2 } }} alignItems="center">
             <Grid item xs={6}>
               <Button variant="contained" onClick={handleAddRule}>
                 Add Keywords
@@ -140,6 +167,34 @@ export default function Options() {
                   />
                 }
                 label={TEXT_OPTIONS_DISPLAY_DEBUG}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                id="enabledon"
+                label="Enabled on"
+                multiline
+                rows={3}
+                value={enabledOn}
+                placeholder="https://www.linkedin.com/*"
+                onChange={handleEnabledOnChange}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <TextField
+                id="disabledon"
+                label="Disabled on"
+                multiline
+                rows={3}
+                value={disabledOn}
+                placeholder="https://www.google.com/*"
+                onChange={handleDisabledOnChange}
+                fullWidth
               />
             </Grid>
           </Grid>

@@ -11,7 +11,6 @@ export interface IKeywordRule {
   id: string;
   keywords: string;
   cssStyles: string;
-  enabledOn: string;
   highlightCompleteWords: boolean;
 }
 
@@ -24,7 +23,6 @@ export default function KeywordRule(props: KeywordRuleProps) {
   const {
     keywords,
     cssStyles,
-    enabledOn,
     highlightCompleteWords,
     onRuleChange,
     onDeleteRule,
@@ -45,15 +43,6 @@ export default function KeywordRule(props: KeywordRuleProps) {
     onRuleChange({
       ...props,
       cssStyles: event.target.value,
-    });
-  };
-
-  const handleEnabledOnChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    onRuleChange({
-      ...props,
-      enabledOn: event.target.value,
     });
   };
 
@@ -95,7 +84,7 @@ export default function KeywordRule(props: KeywordRuleProps) {
         </IconButton>
       </Grid>
 
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <TextField
           id="cssstyles"
           label="CSS styles"
@@ -104,19 +93,6 @@ export default function KeywordRule(props: KeywordRuleProps) {
           value={cssStyles}
           placeholder="background: red;"
           onChange={handleCssStylesChange}
-          fullWidth
-        />
-      </Grid>
-
-      <Grid item xs={6}>
-        <TextField
-          id="enabledon"
-          label="Enabled on"
-          multiline
-          rows={3}
-          value={enabledOn}
-          placeholder="https://www.linkedin.com/"
-          onChange={handleEnabledOnChange}
           fullWidth
         />
       </Grid>
